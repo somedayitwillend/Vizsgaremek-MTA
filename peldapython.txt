@@ -20,18 +20,23 @@ _______________________________________vtp gyász_______________________________
 from netmiko import ConnectHandler
 from getpass import getpass
 
-cisco= {
+sw= {
         "device_type": "cisco_ios",
         "host": "200.30.40.7",
         "username": "admin",
         "password": getpass(),
 }
-connection = ConnectHandler(**cisco1)
-print("Mi legyen az uj vtp jelszo?")
-pass=input()
+connection = ConnectHandler(**sw)
 connection.enable()
-connection.config_mode()
-connection.send_command('vtp password '+input)
+connection.send_command("show vtp password")
 print()
 print(output)
 print()
+print("Mi legyen az uj vtp jelszo?")
+pass=input()
+connection.config_mode()
+connection.send_command(f"vtp password {passw}")
+print()
+print(output)
+print()
+connection.disconnect()
